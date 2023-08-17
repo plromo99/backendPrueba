@@ -16,7 +16,8 @@ const getProductos = async (req, res) => {
 const buscarPorNombre =async (req, res) => {
     const nombre = req.params.nombre;
     const response = await pool.query('SELECT * FROM productos WHERE nombre=$1', [nombre]);
-    res.json(response.rows);
+    //res.json(response.rows);
+    res.status(200).json(response.rows);
 };
 
 const postProducto = async (req, res) => {
@@ -24,7 +25,9 @@ const postProducto = async (req, res) => {
     const response = await pool.query('INSERT INTO productos (nombre, descripcion, precio, cantidad_stock) VALUES ($1, $2, $3 , $4)', 
     [nombre,descripcion,precio,cantidad_stock]);  
     console.log(response);
-    res.send('producto ingresado');     
+    //res.json('ingreso correctamente');
+    //res.send('producto ingresado');     
+    res.status(201).json({ message: 'Product added successfully' });
 };
 
 const deleteProducto = async (req, res) => {
